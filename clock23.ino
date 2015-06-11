@@ -12,6 +12,7 @@ unsigned int numOutputs = numRegisters*8;
 unsigned int ldr[5];
 int ldrNext = 0;
 int currentBrightness = 0;
+const int minBrightness = 1;
 
 // Values for each digit
 byte digits[11]= {63, 6, 91, 79, 102, 109, 125, 7, 127, 111, 0};
@@ -28,7 +29,7 @@ RTC_DS1307 rtc;
 unsigned int brightness() {
   ldr[ldrNext] = analogRead(A0)/4;
   ldrNext = (ldrNext+1) % 5;
-  return max((ldr[0]+ldr[1]+ldr[2]+ldr[3]+ldr[4])/5, 2);
+  return max((ldr[0]+ldr[1]+ldr[2]+ldr[3]+ldr[4])/5, minBrightness);
 }
 
 // Routines to map numbers into the display
@@ -131,6 +132,10 @@ void loop() {
     int mm = now.minute();
     int m1 = mm/10;
     int m2 = mm % 10;
+
+    Serial.print(hh, DEC);
+    Serial.print(":");
+    Serial.println(mm, DEC);
 
     // Set the digits
     resetDisplay();
