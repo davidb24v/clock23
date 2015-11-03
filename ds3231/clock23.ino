@@ -152,11 +152,11 @@ void setup(){
     ldr[i] = analogRead(A0)/4;
   }
 
-  // Initial clock setup (not very accurate)
+/*  // Initial clock setup (not very accurate)
   if (! rtc.isrunning()) {
     rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
   }
-
+*/
   // Interrupt once every second (specify control register for DS3231)
   // Passing in the control register address requires a modification
   // to the Adafruit RTClib:
